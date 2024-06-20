@@ -1,0 +1,669 @@
+USE [master]
+GO
+/****** Object:  Database [MedicinalPlantAphotecary]    Script Date: 04.01.2023 23:49:13 ******/
+CREATE DATABASE [MedicinalPlantAphotecary]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'MedicinalPlantAphotecary', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\MedicinalPlantAphotecary.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'MedicinalPlantAphotecary_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\MedicinalPlantAphotecary_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [MedicinalPlantAphotecary].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET RECOVERY FULL 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET  MULTI_USER 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'MedicinalPlantAphotecary', N'ON'
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET QUERY_STORE = OFF
+GO
+USE [MedicinalPlantAphotecary]
+GO
+/****** Object:  Table [dbo].[Brand]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Brand](
+	[Brand_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Brand_Name] [nvarchar](50) NOT NULL,
+	[Brand_Owner] [nvarchar](50) NULL,
+	[Brand_Goods] [nvarchar](50) NULL,
+	[Founding_Year] [int] NULL,
+	[Country] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Brand_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Client_Card]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Client_Card](
+	[Client_Card_id] [int] IDENTITY(1,1) NOT NULL,
+	[Client_Name] [nvarchar](50) NULL,
+	[Discount] [int] NOT NULL,
+	[Card_Type] [nvarchar](50) NOT NULL,
+	[Registration_Date] [datetime] NULL,
+ CONSTRAINT [PK__Client_C__20719B4054DDAE8F] PRIMARY KEY CLUSTERED 
+(
+	[Client_Card_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Illness]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Illness](
+	[Illness_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Illness_Name] [nvarchar](50) NOT NULL,
+	[Symphtoms] [nvarchar](50) NULL,
+	[Severity] [nvarchar](50) NULL,
+	[Duration] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Illness_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Medicinal_Plant]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Medicinal_Plant](
+	[Plant_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Plant_Name] [nvarchar](50) NOT NULL,
+	[Latin_Name] [nvarchar](50) NULL,
+	[Classification] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Plant_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Plant_in_Product]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Plant_in_Product](
+	[Plant_in_Product] [int] IDENTITY(1,1) NOT NULL,
+	[Plant_id] [int] NOT NULL,
+	[Product_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Plant_in_Product] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[Product_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Product_Name] [nvarchar](50) NOT NULL,
+	[Category] [nvarchar](50) NULL,
+	[Contraindication] [nvarchar](50) NULL,
+	[Price] [decimal](18, 2) NOT NULL,
+	[Method_of_Application] [nvarchar](50) NULL,
+	[Product_Weight] [decimal](18, 2) NULL,
+	[Quantity] [int] NOT NULL,
+	[Brand] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Product_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product_from_Illness]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product_from_Illness](
+	[Product_from_Illness_id] [int] IDENTITY(1,1) NOT NULL,
+	[Illness_id] [int] NOT NULL,
+	[Product_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Product_from_Illness_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product_Quantity]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product_Quantity](
+	[Product_Quantity_id] [int] IDENTITY(1,1) NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[Purchase_id] [int] NOT NULL,
+	[Product_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Product_Quantity_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Purchase]    Script Date: 04.01.2023 23:49:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Purchase](
+	[Purchase_id] [int] IDENTITY(1,1) NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Sum] [decimal](18, 2) NOT NULL,
+	[Client_Card] [int] NULL,
+ CONSTRAINT [PK__Purchase__543D615B3CC89472] PRIMARY KEY CLUSTERED 
+(
+	[Purchase_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Brand] ON 
+GO
+INSERT [dbo].[Brand] ([Brand_Id], [Brand_Name], [Brand_Owner], [Brand_Goods], [Founding_Year], [Country]) VALUES (5, N'Herbs United', N'Алекандр Гамільтон', N'Засоби доглядової косметики', 2010, N'Англія')
+GO
+INSERT [dbo].[Brand] ([Brand_Id], [Brand_Name], [Brand_Owner], [Brand_Goods], [Founding_Year], [Country]) VALUES (6, N'Трави України', N'Борис Борисенко', N'Збори трав', 2004, N'Україна')
+GO
+INSERT [dbo].[Brand] ([Brand_Id], [Brand_Name], [Brand_Owner], [Brand_Goods], [Founding_Year], [Country]) VALUES (7, N'Карпатський лікар', N'Петр Петренко', N'Фіто чаї', 1996, N'Україна')
+GO
+INSERT [dbo].[Brand] ([Brand_Id], [Brand_Name], [Brand_Owner], [Brand_Goods], [Founding_Year], [Country]) VALUES (1005, N'Twyryne inc', N'Артемій Бурах', N'Мікстури', 2005, N'Монголія')
+GO
+INSERT [dbo].[Brand] ([Brand_Id], [Brand_Name], [Brand_Owner], [Brand_Goods], [Founding_Year], [Country]) VALUES (1006, N'Ліктрави', N'Данііл Данковський', N'Збори трав', 2017, N'Монголія')
+GO
+SET IDENTITY_INSERT [dbo].[Brand] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Client_Card] ON 
+GO
+INSERT [dbo].[Client_Card] ([Client_Card_id], [Client_Name], [Discount], [Card_Type], [Registration_Date]) VALUES (4, N'Олена Петрова', 3, N'Silver', CAST(N'2022-01-05T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Client_Card] ([Client_Card_id], [Client_Name], [Discount], [Card_Type], [Registration_Date]) VALUES (5, N'Тарас Шевченко', 10, N'Platinum', CAST(N'2022-01-07T00:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[Client_Card] ([Client_Card_id], [Client_Name], [Discount], [Card_Type], [Registration_Date]) VALUES (6, N'Леся Українка', 4, N'Silver', CAST(N'2022-01-06T00:00:00.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[Client_Card] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Illness] ON 
+GO
+INSERT [dbo].[Illness] ([Illness_Id], [Illness_Name], [Symphtoms], [Severity], [Duration]) VALUES (7, N'Мігрень', N'Головний біль', N'Важка', N'20-40 хвилин')
+GO
+INSERT [dbo].[Illness] ([Illness_Id], [Illness_Name], [Symphtoms], [Severity], [Duration]) VALUES (8, N'Акне', N'Висипання на шкірі', N'Легка', N'1-2 тижні')
+GO
+INSERT [dbo].[Illness] ([Illness_Id], [Illness_Name], [Symphtoms], [Severity], [Duration]) VALUES (9, N'Стоматит', N'Біль у ротовій порожнині', N'Середня', N'6 днів')
+GO
+INSERT [dbo].[Illness] ([Illness_Id], [Illness_Name], [Symphtoms], [Severity], [Duration]) VALUES (1008, N'Застуда', N'Біль у горлі', N'Середня', N'5 днів')
+GO
+INSERT [dbo].[Illness] ([Illness_Id], [Illness_Name], [Symphtoms], [Severity], [Duration]) VALUES (1009, N'Отруєння', N'Біль у животі', N'Середня', N'1-2 дні')
+GO
+SET IDENTITY_INSERT [dbo].[Illness] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Medicinal_Plant] ON 
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (7, N'Чебрець', N'Thymus', N'Офіційний реєстр')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (8, N'Ромашка лікарська', N'Matricaria chamomilla', N'Офіційний реєстр')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (9, N'Куркума', N'Curcuma', N'Народна медицина')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (1007, N'Лаванда', N'Lavander', N'Офіційний реєстр')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (1008, N'Деревій звичайний', N'Achillea millefolium L', N'Офіційний реєстр')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (1009, N'Алое', N'Aloe succotrina', N'Офіційний реєстр')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (1010, N'Полин гіркий', N'Artemisia absinthium', N'Народна медицина')
+GO
+INSERT [dbo].[Medicinal_Plant] ([Plant_Id], [Plant_Name], [Latin_Name], [Classification]) VALUES (1011, N'Ірландський мох', N'Chondrus crispus', N'Народна медицина')
+GO
+SET IDENTITY_INSERT [dbo].[Medicinal_Plant] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Plant_in_Product] ON 
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (6, 9, 1008)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (42, 8, 1005)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (43, 1007, 1009)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (44, 7, 1006)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (45, 8, 1006)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (47, 1009, 1032)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (48, 1010, 1033)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (49, 1011, 1033)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (52, 7, 1035)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (53, 1007, 1035)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (54, 7, 1034)
+GO
+INSERT [dbo].[Plant_in_Product] ([Plant_in_Product], [Plant_id], [Product_id]) VALUES (55, 1007, 1034)
+GO
+SET IDENTITY_INSERT [dbo].[Plant_in_Product] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Product] ON 
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1005, N'Чай "Ромашка"', N'Чай', N'Гіпотонія', CAST(35.50 AS Decimal(18, 2)), N'Заварювати та пити', CAST(100.00 AS Decimal(18, 2)), 17, 6)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1006, N'Чай "Сила Карпат"', N'Чай', N'Гастрит', CAST(40.00 AS Decimal(18, 2)), N'Заварювати та пити', CAST(110.00 AS Decimal(18, 2)), 0, 7)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1008, N'Крем для обличчя "Orientana Turmeric"', N'Крем для обличчя', N'Алергія', CAST(120.00 AS Decimal(18, 2)), N'Наносити на обличчя', CAST(160.30 AS Decimal(18, 2)), 14, 5)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1009, N'Лавандова олія', N'Олія', N'Епілепсія', CAST(43.00 AS Decimal(18, 2)), N'Наносити на ділянки тіла', CAST(80.00 AS Decimal(18, 2)), 0, 5)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1032, N'Крем з алое "Aloe"', N'Крем', N'Особиста непереносимість', CAST(228.00 AS Decimal(18, 2)), N'Наносити на шкіру', CAST(200.00 AS Decimal(18, 2)), 9, 5)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1033, N'Мікстура "Савьюр"', N'Мікстура', N'Недокрів''я', CAST(95.50 AS Decimal(18, 2)), N'Полоскати ротову порожнину', CAST(120.00 AS Decimal(18, 2)), 0, 1005)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1034, N'що-небудь', N'якась', N'якісь', CAST(12.00 AS Decimal(18, 2)), N'пити', CAST(30.00 AS Decimal(18, 2)), 2, 1006)
+GO
+INSERT [dbo].[Product] ([Product_Id], [Product_Name], [Category], [Contraindication], [Price], [Method_of_Application], [Product_Weight], [Quantity], [Brand]) VALUES (1035, N'щось', N'якась', N'якісь', CAST(12.00 AS Decimal(18, 2)), N'пити', CAST(30.00 AS Decimal(18, 2)), 2, 1006)
+GO
+SET IDENTITY_INSERT [dbo].[Product] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Product_from_Illness] ON 
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (1, 8, 1008)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (35, 7, 1005)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (36, 7, 1009)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (37, 9, 1006)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (38, 7, 1006)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (41, 8, 1032)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (42, 9, 1032)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (43, 1008, 1033)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (45, 1009, 1035)
+GO
+INSERT [dbo].[Product_from_Illness] ([Product_from_Illness_id], [Illness_id], [Product_id]) VALUES (46, 1009, 1034)
+GO
+SET IDENTITY_INSERT [dbo].[Product_from_Illness] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Product_Quantity] ON 
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1, 1, 4, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (2, 1, 4, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (3, 1, 5, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (4, 1, 6, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (5, 2, 6, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (6, 1, 10, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (7, 2, 10, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (8, 1, 16, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (9, 1, 17, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (10, 1, 18, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (11, 1, 19, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (12, 1, 20, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (13, 1, 20, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (14, 1, 21, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (15, 1, 21, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (16, 1, 22, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (17, 1, 22, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (18, 1, 23, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (19, 1, 24, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (20, 1, 25, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (21, 1, 26, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (22, 1, 27, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (23, 1, 28, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (24, 1, 29, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (25, 1, 30, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (26, 1, 31, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (27, 1, 31, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (28, 1, 31, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (29, 2, 32, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (30, 2, 33, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (31, 1, 34, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (32, 1, 35, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (33, 1, 36, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (34, 1, 37, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (35, 1, 38, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (36, 1, 39, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (37, 1, 40, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (38, 1, 41, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (39, 1, 42, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1018, 1, 1024, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1019, 1, 1025, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1020, 1, 1026, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1021, 1, 1027, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1022, 1, 1028, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1023, 1, 1029, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1024, 3, 1030, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1025, 1, 1031, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1026, 1, 1031, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1027, 1, 1032, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1029, 5, 1034, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1030, 7, 1035, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1031, 1, 1036, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1032, 1, 1037, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1033, 1, 1038, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1036, 1, 1041, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1037, 1, 1042, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1038, 1, 1043, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1039, 1, 1044, 1006)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1040, 3, 1044, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1041, 1, 1045, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1042, 1, 1046, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1043, 1, 1046, 1008)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1044, 9, 1047, 1005)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1045, 3, 1047, 1033)
+GO
+INSERT [dbo].[Product_Quantity] ([Product_Quantity_id], [Quantity], [Purchase_id], [Product_id]) VALUES (1046, 1, 1047, 1032)
+GO
+SET IDENTITY_INSERT [dbo].[Product_Quantity] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Purchase] ON 
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (4, CAST(N'2022-11-29T00:00:00.000' AS DateTime), CAST(160.00 AS Decimal(18, 2)), 5)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (5, CAST(N'2022-11-12T00:00:00.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), 6)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (6, CAST(N'2022-10-03T00:00:00.000' AS DateTime), CAST(191.00 AS Decimal(18, 2)), 4)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (7, CAST(N'2002-02-12T00:00:00.000' AS DateTime), CAST(35.00 AS Decimal(18, 2)), 4)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (9, CAST(N'2022-12-12T20:54:50.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (10, CAST(N'2022-12-12T21:25:37.000' AS DateTime), CAST(280.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (15, CAST(N'2022-12-13T03:37:17.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (16, CAST(N'2022-12-13T03:37:40.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (17, CAST(N'2022-12-13T03:38:20.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (18, CAST(N'2022-12-13T03:38:54.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (19, CAST(N'2022-12-13T03:41:06.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (20, CAST(N'2022-12-13T14:22:33.000' AS DateTime), CAST(160.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (21, CAST(N'2022-12-13T14:23:39.000' AS DateTime), CAST(160.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (22, CAST(N'2022-12-13T14:24:22.000' AS DateTime), CAST(160.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (23, CAST(N'2022-12-13T14:25:55.000' AS DateTime), CAST(34.44 AS Decimal(18, 2)), 4)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (24, CAST(N'2022-12-13T14:31:33.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (25, CAST(N'2022-12-13T14:49:44.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (26, CAST(N'2022-12-13T14:50:53.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (27, CAST(N'2022-12-13T14:51:30.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (28, CAST(N'2022-12-13T14:51:47.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (29, CAST(N'2022-12-13T14:52:36.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (30, CAST(N'2022-12-13T14:57:40.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (31, CAST(N'2022-12-13T20:11:09.000' AS DateTime), CAST(195.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (32, CAST(N'2022-12-17T19:30:16.000' AS DateTime), CAST(71.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (33, CAST(N'2022-12-17T19:30:50.000' AS DateTime), CAST(71.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (34, CAST(N'2022-12-17T19:31:29.000' AS DateTime), CAST(120.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (35, CAST(N'2022-12-17T19:35:30.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (36, CAST(N'2022-12-18T01:54:44.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (37, CAST(N'2022-12-18T01:55:06.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (38, CAST(N'2022-12-18T01:58:33.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (39, CAST(N'2022-12-18T02:00:01.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (40, CAST(N'2022-12-18T02:01:56.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (41, CAST(N'2022-12-18T02:04:58.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (42, CAST(N'2022-12-18T02:09:16.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1024, CAST(N'2022-12-18T14:04:59.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1025, CAST(N'2022-12-18T14:10:38.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1026, CAST(N'2022-12-18T18:33:34.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1027, CAST(N'2022-12-18T18:34:00.000' AS DateTime), CAST(40.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1028, CAST(N'2022-12-18T18:50:13.000' AS DateTime), CAST(120.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1029, CAST(N'2022-12-18T18:51:24.000' AS DateTime), CAST(120.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1030, CAST(N'2022-12-18T19:29:05.000' AS DateTime), CAST(360.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1031, CAST(N'2022-12-19T09:25:42.000' AS DateTime), CAST(71.72 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1032, CAST(N'2022-12-19T09:33:04.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1033, CAST(N'2022-12-19T09:36:56.000' AS DateTime), CAST(144.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1034, CAST(N'2022-12-19T09:38:16.000' AS DateTime), CAST(200.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1035, CAST(N'2022-12-19T09:38:43.000' AS DateTime), CAST(280.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1036, CAST(N'2022-12-19T10:10:37.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1037, CAST(N'2022-12-19T10:10:52.000' AS DateTime), CAST(31.24 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1038, CAST(N'2022-12-19T10:39:54.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1039, CAST(N'2022-12-19T11:52:45.000' AS DateTime), CAST(12.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1040, CAST(N'2022-12-19T11:53:19.000' AS DateTime), CAST(60.00 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1041, CAST(N'2022-12-19T17:27:46.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1042, CAST(N'2022-12-19T17:28:23.000' AS DateTime), CAST(34.79 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1043, CAST(N'2022-12-19T17:31:36.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1044, CAST(N'2022-12-21T22:53:56.000' AS DateTime), CAST(131.85 AS Decimal(18, 2)), 5)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1045, CAST(N'2022-12-25T18:59:35.000' AS DateTime), CAST(35.50 AS Decimal(18, 2)), NULL)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1046, CAST(N'2023-01-04T10:49:58.000' AS DateTime), CAST(150.84 AS Decimal(18, 2)), 4)
+GO
+INSERT [dbo].[Purchase] ([Purchase_id], [Date], [Sum], [Client_Card]) VALUES (1047, CAST(N'2023-01-04T23:35:48.000' AS DateTime), CAST(800.64 AS Decimal(18, 2)), 6)
+GO
+SET IDENTITY_INSERT [dbo].[Purchase] OFF
+GO
+ALTER TABLE [dbo].[Plant_in_Product]  WITH CHECK ADD FOREIGN KEY([Plant_id])
+REFERENCES [dbo].[Medicinal_Plant] ([Plant_Id])
+GO
+ALTER TABLE [dbo].[Plant_in_Product]  WITH CHECK ADD  CONSTRAINT [FK__Plant_in___Produ__2E1BDC42] FOREIGN KEY([Product_id])
+REFERENCES [dbo].[Product] ([Product_Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Plant_in_Product] CHECK CONSTRAINT [FK__Plant_in___Produ__2E1BDC42]
+GO
+ALTER TABLE [dbo].[Product]  WITH CHECK ADD  CONSTRAINT [FK__Product__Brand__2A4B4B5E] FOREIGN KEY([Brand])
+REFERENCES [dbo].[Brand] ([Brand_Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK__Product__Brand__2A4B4B5E]
+GO
+ALTER TABLE [dbo].[Product_from_Illness]  WITH CHECK ADD FOREIGN KEY([Illness_id])
+REFERENCES [dbo].[Illness] ([Illness_Id])
+GO
+ALTER TABLE [dbo].[Product_from_Illness]  WITH CHECK ADD  CONSTRAINT [FK__Product_f__Produ__31EC6D26] FOREIGN KEY([Product_id])
+REFERENCES [dbo].[Product] ([Product_Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Product_from_Illness] CHECK CONSTRAINT [FK__Product_f__Produ__31EC6D26]
+GO
+ALTER TABLE [dbo].[Product_Quantity]  WITH CHECK ADD  CONSTRAINT [FK__Product_Q__Produ__3A81B327] FOREIGN KEY([Product_id])
+REFERENCES [dbo].[Product] ([Product_Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Product_Quantity] CHECK CONSTRAINT [FK__Product_Q__Produ__3A81B327]
+GO
+ALTER TABLE [dbo].[Product_Quantity]  WITH CHECK ADD  CONSTRAINT [FK__Product_Q__Purch__398D8EEE] FOREIGN KEY([Purchase_id])
+REFERENCES [dbo].[Purchase] ([Purchase_id])
+GO
+ALTER TABLE [dbo].[Product_Quantity] CHECK CONSTRAINT [FK__Product_Q__Purch__398D8EEE]
+GO
+ALTER TABLE [dbo].[Purchase]  WITH CHECK ADD  CONSTRAINT [FK__Purchase__Client__47DBAE45] FOREIGN KEY([Client_Card])
+REFERENCES [dbo].[Client_Card] ([Client_Card_id])
+ON DELETE SET NULL
+GO
+ALTER TABLE [dbo].[Purchase] CHECK CONSTRAINT [FK__Purchase__Client__47DBAE45]
+GO
+ALTER TABLE [dbo].[Purchase]  WITH CHECK ADD  CONSTRAINT [FK_Purchase_Purchase] FOREIGN KEY([Purchase_id])
+REFERENCES [dbo].[Purchase] ([Purchase_id])
+GO
+ALTER TABLE [dbo].[Purchase] CHECK CONSTRAINT [FK_Purchase_Purchase]
+GO
+USE [master]
+GO
+ALTER DATABASE [MedicinalPlantAphotecary] SET  READ_WRITE 
+GO
